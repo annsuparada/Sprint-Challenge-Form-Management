@@ -11,7 +11,7 @@ const UserForm = () => {
             <Form>
                 <Field type="text" name="username" placeholeder="Username" />
                 <Field type="password" name="password" placeholeder="Password" />
-                <button>Submit</button>
+                <button type="submit">Submit</button>
             </Form>
         </div>
     )
@@ -23,6 +23,15 @@ const FormikUserForm = withFormik({
             username: username || '',
             passwoed: password || ''
         }
+    },
+
+    handleSubmit(values, { setStatus }) {
+        axios
+            .post('http://localhost:5000/api/register', values)
+            .then(res => {
+                setStatus(res.data)
+            })
+            .catch(err => console.log(err.response))
     }
 })(UserForm)
 

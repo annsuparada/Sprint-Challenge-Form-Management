@@ -1,5 +1,5 @@
 import React from 'react';
-import UserForm from './component/UserForm'
+import FormikUserForm from './component/UserForm'
 import './App.css';
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
         <h1>Login Form</h1>
       </header>
 
-      <UserForm />
+      <FormikUserForm />
     </div>
   );
 }
