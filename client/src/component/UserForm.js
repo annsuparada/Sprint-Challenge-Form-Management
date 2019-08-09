@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 const UserForm = ({ errors, touched, status, handleSubmit }) => {
     const [users, setUsers] = useState([]);
     
-    console.log(users)
+    // console.log(users)
 
     useEffect(() => {
         if(status) {
@@ -20,7 +20,7 @@ const UserForm = ({ errors, touched, status, handleSubmit }) => {
             .then(response => 
                 setUsers(response.data)   
             )
-            console.log(setUsers)
+            
     }, [status])
 
     return(
