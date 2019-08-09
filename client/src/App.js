@@ -9,7 +9,7 @@ function App() {
         <h1>Login Form</h1>
       </header>
 
-      <FormikUserForm />
+      <FormikUserForm  />
     </div>
   );
 }
