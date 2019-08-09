@@ -3,24 +3,53 @@ import axios from 'axios';
 import { Form, Field, withFormik } from 'formik';
 import * as Yup from 'yup';
 
-const UserForm = ({ errors, touched }) => {
+const UserForm = ({ errors, touched, status, handleSubmit }) => {
+    const [users, setUsers] = useState([]);
+    
+    console.log(users)
+
+    useEffect(() => {
+        if(status) {
+            setUsers([...users, status])
+        }
+    }, [status])
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:5000/api/restricted/data')
+            .then(response => 
+                setUsers(response.data)   
+            )
+            console.log(setUsers)
+    }, [status])
 
     return(
         <div>
+            <div>
             <h1>Login</h1>
-            <Form>
-                <Field type="text" name="username" placeholeder="Username" />
-                {touched.username && errors.username && (
-                    <p className="error">{errors.username}</p>
-                )}
+                <Form>
+                    <Field type="text" name="username" placeholeder="Username" />
+                    {touched.username && errors.username && (
+                        <p className="error">{errors.username}</p>
+                    )}
 
-                <Field type="password" name="password" placeholeder="Password" />
-                {touched.password && errors.password && (
-                    <p className="error">{errors.password}</p>
-                )}
+                    <Field type="password" name="password" placeholeder="Password" />
+                    {touched.password && errors.password && (
+                        <p className="error">{errors.password}</p>
+                    )}
 
-                <button type="submit">Submit</button>
-            </Form>
+                    <button type="submit">Submit</button>
+                </Form>
+            </div>
+            <div>
+                {users.map(user => {
+                    return(
+                        <div>
+                            <h2 key={user.id}>{user.name}</h2>
+                        </div>
+                    ) 
+                })}
+            </div>
         </div>
     )
 }
@@ -34,7 +63,7 @@ const FormikUserForm = withFormik({
     },
 
     ValidationSchema: Yup.object().shape({
-        username: Yup.string().required(),
+        username: Yup.string().required('username'),
         password: Yup.string().required()
     }),
 
